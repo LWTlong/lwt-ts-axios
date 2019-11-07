@@ -1,5 +1,6 @@
 import { isPlainObject } from './util'
 
+// 处理 headers 里面的 Content-Type
 function normalizeHeaderName(headers: any, normalizedName: string): void {
   if (!headers) {
     return
@@ -12,6 +13,7 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
   })
 }
 
+// 配置 headers 的 Content-Type  如果data 是对象 配置 application/json;charset=utf-8
 export function processHeaders(headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
   if (isPlainObject(data)) {
@@ -19,4 +21,5 @@ export function processHeaders(headers: any, data: any): any {
       headers['Content-Type'] = 'application/json;charset=utf-8'
     }
   }
+  return headers
 }

@@ -1,5 +1,6 @@
 import { isDate, isPlainObject } from './util'
 
+// 转换 url 中的特殊字符
 function encode(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')
@@ -11,11 +12,13 @@ function encode(val: string): string {
     .replace(/%5D/gi, ']')
 }
 
+// 构建 url  拼接参数
 export function buildURL(url: string, params?: any): string {
   if (!params) {
     return url
   }
   const parts: string[] = []
+  // 循环参数 处理为一个数组
   Object.keys(params).forEach(key => {
     const val = params[key]
     if (val === null || typeof val === 'undefined') {
@@ -37,6 +40,7 @@ export function buildURL(url: string, params?: any): string {
       parts.push(`${encode(key)}=${encode(val)}`)
     })
   })
+  // 数组转换为字符串  拼接在 url 上   去除哈希符号
   let serializedParams = parts.join('&')
   if (serializedParams) {
     const markIndex = url.indexOf('#')
