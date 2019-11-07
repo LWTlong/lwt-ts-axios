@@ -77,32 +77,59 @@ import axios from '../../src/index'
 // ======================== 处理 body demo end =================================
 
 // ======================== 处理 headers demo  start ===========================
-axios({
-  method: 'post',
-  url: '/base/post',
-  data: {
-    a: 1,
-    b: 2
-  }
-})
-axios({
-  method: 'post',
-  headers: {
-    'content-type': 'application/json',
-    'Accept': 'application/json, text/plain, */*'
-  },
-  url: '/base/post',
-  data: {
-    c: 1,
-    d: 2
-  }
-})
-
-const paramsString = 'q=URLUtils.searchParams&topic=api'
-const searchParams = new URLSearchParams(paramsString)
-axios({
-  method: 'post',
-  url: '/base/post',
-  data: searchParams
-})
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: {
+//     a: 1,
+//     b: 2
+//   }
+// })
+// axios({
+//   method: 'post',
+//   headers: {
+//     'content-type': 'application/json',
+//     'Accept': 'application/json, text/plain, */*'
+//   },
+//   url: '/base/post',
+//   data: {
+//     c: 1,
+//     d: 2
+//   }
+// })
+//
+// const paramsString = 'q=URLUtils.searchParams&topic=api'
+// const searchParams = new URLSearchParams(paramsString)
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: searchParams
+// })
 // ======================== 处理 headers demo  end ===========================
+
+// ======================== 处理返回数据为 promise demo start ===========================
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: {
+    name: 'lwt',
+    sex: 'm'
+  }
+}).then(res => {
+  console.log(res)
+})
+axios({
+  method: 'post',
+  url: '/base/post',
+  responseType: 'json',
+  headers: {
+    'content-type': 'application/json'
+  },
+  data: {
+    name: 'wlp',
+    sex: 'w'
+  }
+}).then(res => {
+  console.log(res)
+})
+// ======================== 处理返回数据为 promise demo end ===========================
