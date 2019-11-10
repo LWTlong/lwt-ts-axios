@@ -113,4 +113,14 @@ function registerExtendRouter() {
   router.patch('/extend/patch', function(req, res) {
     res.json(req.body)
   })
+  router.get('/extend/user', function(req, res) {
+    res.json({
+      code: 0,
+      message: 'oK',
+      result: {
+        name: 'lwt',
+        age: 23
+      }
+    })
+  })
 }

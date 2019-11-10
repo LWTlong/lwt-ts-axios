@@ -30,20 +30,20 @@ axios.patch('/extend/patch', { msg: 'patch' })
 // ============== 扩展API end================
 
 // ========== 实现传入两个参数 start =========
-axios('/extend/post', {
-  method: 'post',
-  data: {
-    name: 'lwt',
-    age: '23'
-  }
-})
-axios({
-  url: '/extend/post',
-  method: 'post',
-  data: {
-    a: 1
-  }
-})
+// axios('/extend/post', {
+//   method: 'post',
+//   data: {
+//     name: 'lwt',
+//     age: '23'
+//   }
+// })
+// axios({
+//   url: '/extend/post',
+//   method: 'post',
+//   data: {
+//     a: 1
+//   }
+// })
 // 可以这么调用 浏览器能够正常请求到 就是 ide 会给报错 接口里面定义的 axios.request 只能传入一个 config 参数
 // axios.request('/extend/post',{
 //   method: 'post',
@@ -53,3 +53,31 @@ axios({
 //   }
 // })
 // ========== 实现传入两个参数 end   =========
+
+// ========== 实现接口泛型 start =============
+interface ResponseData<T = any> {
+  code: number
+  result: T
+  message: string
+}
+
+interface User {
+  name: string
+  age: number
+}
+
+function getUser<T>() {
+  return axios<ResponseData<T>>('/extend/user').then(res => res.data).catch(err => console.error(err))
+}
+
+
+async function test() {
+  const user = await getUser<User>()
+  if (user) {
+    console.log(user.result.name)
+  }
+}
+
+test()
+
+// ========== 实现接口泛型 end =============
