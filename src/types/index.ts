@@ -24,6 +24,8 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeOut?: number
+
+  [propName: string]: any
 }
 
 // 定义一个返回 promise 对象接口类型
@@ -50,10 +52,14 @@ export interface AxiosError extends Error {
 
 // 定义 axios 方法类 的接口
 export interface Axios {
+  // 默认配置
+  defaults: AxiosRequestConfig
+  // 拦截器
   interceptors: {
     request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
   }
+
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
 
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -87,6 +93,7 @@ export interface AxiosInterceptorManager<T> {
 export interface ResolvedFn<T> {
   (val: T): T | Promise<T>
 }
+
 export interface RejectedFn {
   (error: any): any
 }

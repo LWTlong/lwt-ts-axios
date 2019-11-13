@@ -2,7 +2,9 @@ import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
 
-// 通过 XMLHttpRequest 对象 发送一个请求
+/**
+ * 通过 XMLHttpRequest 对象 发送一个请求
+ */
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const { data = null, url, method = 'get', headers, responseType, timeOut } = config
