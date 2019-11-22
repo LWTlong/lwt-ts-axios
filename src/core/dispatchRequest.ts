@@ -2,7 +2,7 @@ import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
 import { buildURL } from '../helpers/url'
 import { transformRequest, transformResponse } from '../helpers/data'
-import { processHeaders } from '../helpers/headers'
+import { flattenHeaders, processHeaders } from '../helpers/headers'
 
 /**
  * 调用 xhr 方法  返回一个 response
@@ -21,6 +21,8 @@ function processConfig(config: AxiosRequestConfig): void {
   // 如果先处理了 data 处理 headers 的时候 判断 data 就不是一个普通对象了
   config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
+  // 再做一层 flatten
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 
 // 处理请求的 url

@@ -30,6 +30,7 @@ registerBaseRouter()
 registerErrorRouter()
 registerExtendRouter()
 registerInterceptorRouter()
+registerConfigRouter()
 
 app.use(router)
 
@@ -129,5 +130,15 @@ function registerExtendRouter() {
 function registerInterceptorRouter() {
   router.get('/interceptor/get', function(req, res) {
     res.end('hi lwt,')
+  })
+}
+
+function registerConfigRouter() {
+  router.post('/config/post', function(req, res) {
+    res.json({
+      msg: '成功',
+      code: 0,
+      body: req.body
+    })
   })
 }
