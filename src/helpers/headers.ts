@@ -50,7 +50,6 @@ export function flattenHeaders(headers: any, method: Method): any {
   if (!headers) {
     return headers
   }
-  console.log(headers)
   headers = deepMerge(headers.common, headers[method], headers)
 
   const methodsToDel = ['delete', 'get', 'options', 'head', 'post', 'patch', 'put', 'common']

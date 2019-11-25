@@ -1,8 +1,8 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
 import { buildURL } from '../helpers/url'
-import { transformRequest, transformResponse } from '../helpers/data'
-import { flattenHeaders, processHeaders } from '../helpers/headers'
+import { flattenHeaders } from '../helpers/headers'
+import transform from './transform'
 
 /**
  * 调用 xhr 方法  返回一个 response
@@ -17,10 +17,7 @@ export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromis
 // 对请求的数据进行统一处理
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
-  // 这里要先处理 headers  因为在处理 body 的时候 把 data 转为 json字符串了，
-  // 如果先处理了 data 处理 headers 的时候 判断 data 就不是一个普通对象了
-  config.headers = transformHeaders(config)
-  config.data = transformRequestData(config)
+  config.data = transform(config.data, config.headers, config.transformRequest)
   // 再做一层 flatten
   config.headers = flattenHeaders(config.headers, config.method!)
 }
@@ -31,19 +28,8 @@ function transformURL(config: AxiosRequestConfig): string {
   return buildURL(url!, params)
 }
 
-// 处理请求的 body
-function transformRequestData(config: AxiosRequestConfig): any {
-  return transformRequest(config.data)
-}
-
-// 处理请求的 headers
-function transformHeaders(config: AxiosRequestConfig): any {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
-
 // 处理 响应body
 function transformResponseData(res: AxiosResponse): AxiosResponse {
-  res.data = transformResponse(res.data)
+  res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }

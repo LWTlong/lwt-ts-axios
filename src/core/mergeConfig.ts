@@ -20,11 +20,11 @@ function fromUserStrat(val1: any, val2: any): any {
 function deepMergeStrat(val1: any, val2: any): any {
   if (isPlainObject(val2)) {
     // 深拷贝函数
-    deepMerge(val1, val2)
+    return deepMerge(val1, val2)
   } else if (typeof val2 !== 'undefined') {
     return val2
   } else if (isPlainObject(val1)) {
-    deepMerge(val1)
+    return deepMerge(val1)
   } else if (typeof val1 !== 'undefined') {
     return val1
   }
@@ -69,6 +69,5 @@ export default function mergeConfig(
     const strat = strats[key] || defaultStrat
     config[key] = strat(config1[key], config2![key])
   }
-
   return config
 }
