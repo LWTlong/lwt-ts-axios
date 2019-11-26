@@ -103,3 +103,8 @@ export interface RejectedFn {
 export interface AxiosTransform {
   (data: any, headers?: any): any
 }
+
+// 定义 axios create 静态接口
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
+}
