@@ -26,7 +26,7 @@ export interface AxiosRequestConfig {
   timeOut?: number
   transformRequest?: AxiosTransform | AxiosTransform[]
   transformResponse?: AxiosTransform | AxiosTransform[]
-
+  cancelToken?: CancelToken
   [propName: string]: any
 }
 
@@ -107,4 +107,33 @@ export interface AxiosTransform {
 // 定义 axios create 静态接口
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+}
+
+// 定义 CancelToken 接口
+export interface CancelToken {
+  promise: Promise<string>
+  reason?: string
+}
+
+// 定义取消方法接口
+export interface Canceler {
+  (message?: string): void
+}
+
+// 定义 Cancel 构造函数的参数类型
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+// 定义一个通过 CancelToken.source 方法返回的一个对象接口
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+// 定义 CancelToken Static 接口
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+
+  source(): CancelTokenSource
 }
