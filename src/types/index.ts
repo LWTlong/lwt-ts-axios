@@ -27,6 +27,10 @@ export interface AxiosRequestConfig {
   transformRequest?: AxiosTransform | AxiosTransform[]
   transformResponse?: AxiosTransform | AxiosTransform[]
   cancelToken?: CancelToken
+  withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
+
   [propName: string]: any
 }
 
@@ -107,12 +111,17 @@ export interface AxiosTransform {
 // 定义 axios create 静态接口
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel: (value: any) => boolean
 }
 
 // 定义 CancelToken 接口
 export interface CancelToken {
-  promise: Promise<string>
-  reason?: string
+  promise: Promise<Cancel>
+  reason?: Cancel
+  throwIfRequested(): void
 }
 
 // 定义取消方法接口
@@ -136,4 +145,14 @@ export interface CancelTokenStatic {
   new (executor: CancelExecutor): CancelToken
 
   source(): CancelTokenSource
+}
+
+// 定义 Cancel 类
+export interface Cancel {
+  message?: string
+}
+
+// Cancel 类的类类型
+export interface CancelStatic {
+  new (message?: string): Cancel
 }

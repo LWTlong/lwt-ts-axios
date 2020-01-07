@@ -4,6 +4,9 @@ const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpackConfig = require('./webpack.config')
+const cookieParser = require('cookie-parser')
+
+require('./server2')
 
 const app = express()
 const compiler = webpack(webpackConfig)
@@ -18,10 +21,15 @@ app.use(webpackDevMiddleware(compiler, {
 
 app.use(webpackHotMiddleware(compiler))
 
-app.use(express.static(__dirname))
+app.use(express.static(__dirname, {
+  setHeaders(res) {
+    res.cookie('XSRF-TOKEN-L', 'lwt123')
+  }
+}))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 const router = express.Router()
 
@@ -31,6 +39,8 @@ registerErrorRouter()
 registerExtendRouter()
 registerInterceptorRouter()
 registerConfigRouter()
+registerCancelRouter()
+registerMoreRouter()
 
 app.use(router)
 
@@ -140,5 +150,24 @@ function registerConfigRouter() {
       code: 0,
       body: req.body
     })
+  })
+}
+
+function registerCancelRouter() {
+  router.get('/cancel/get', function(req, res) {
+    setTimeout(() => {
+      res.json('hello, get')
+    }, 1000)
+  })
+  router.post('/cancel/post', function(req, res) {
+    setTimeout(() => {
+      res.json(req.body)
+    }, 1000)
+  })
+}
+
+function registerMoreRouter() {
+  router.get('/more/get', function(req, res) {
+    res.json(req.cookies)
   })
 }
