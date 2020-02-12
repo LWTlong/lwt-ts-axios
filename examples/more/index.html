@@ -3,8 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>more</title>
+  <style rel="stylesheet">
+    #download,#upload{
+      width: 200px;
+      height: 100px;
+      line-height: 100px;
+      font-size: 20px;
+    }
+  </style>
 </head>
 <body>
+<h1>下载上传进度条监控</h1>
+<div>
+  <h3>下载</h3>
+  <button id="download">Download</button>
+</div>
+<div>
+  <h3>上传</h3>
+  <form role="form" class="form" onsubmit="return false;">
+    <div>
+      <input id="file" type="file" >
+    </div>
+    <button id="upload">Upload</button>
+  </form>
+</div>
 <script src="/_build_/more.js"></script>
 </body>
 </html>

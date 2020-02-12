@@ -23,6 +23,11 @@ export function extend<T, U>(to: T, from: U): T & U {
   return to as T & U
 }
 
+// 判断是否是 formData
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
+}
+
 /**
  * 深拷贝 方法
  */
