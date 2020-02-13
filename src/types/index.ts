@@ -32,6 +32,9 @@ export interface AxiosRequestConfig {
   xsrfHeaderName?: string
   onDownloadProgress?: (e: ProgressEvent) => void
   onUploadProgress?: (e: ProgressEvent) => void
+  auth?: AxiosBasicCredentials
+  validateStatus?: (status: number) => boolean
+  paramsSerializer?: (params: any) => string
 
   [propName: string]: any
 }
@@ -123,6 +126,7 @@ export interface AxiosStatic extends AxiosInstance {
 export interface CancelToken {
   promise: Promise<Cancel>
   reason?: Cancel
+
   throwIfRequested(): void
 }
 
@@ -157,4 +161,10 @@ export interface Cancel {
 // Cancel 类的类类型
 export interface CancelStatic {
   new (message?: string): Cancel
+}
+
+// HTTP 授权
+export interface AxiosBasicCredentials {
+  username: string
+  password: string
 }

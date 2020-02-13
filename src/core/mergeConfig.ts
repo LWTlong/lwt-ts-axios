@@ -37,7 +37,7 @@ stratKeysFromUser.forEach(key => {
 })
 
 // 需要深拷贝策略的对象
-const stratKeysDeepMerge = ['headers']
+const stratKeysDeepMerge = ['headers', 'auth']
 stratKeysDeepMerge.forEach(key => {
   strats[key] = deepMergeStrat
 })
