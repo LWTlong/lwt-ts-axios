@@ -110,38 +110,76 @@ import qs from 'qs'
 // })
 
 // 自定义参数序列化
-axios.get('/more/get', {
-  params: new URLSearchParams('a=b&c=d')
-}).then(res => {
-  console.log(res)
-}).catch(err => {
-  console.log(err.message)
-})
-axios.get('/more/get', {
-  params: {
-    a: 1,
-    b: 2,
-    c: ['a', 'b', 'c']
-  }
-}).then(res => {
-  console.log(res)
-}).catch(err => {
-  console.log(err.message)
-})
+// axios.get('/more/get', {
+//   params: new URLSearchParams('a=b&c=d')
+// }).then(res => {
+//   console.log(res)
+// }).catch(err => {
+//   console.log(err.message)
+// })
+// axios.get('/more/get', {
+//   params: {
+//     a: 1,
+//     b: 2,
+//     c: ['a', 'b', 'c']
+//   }
+// }).then(res => {
+//   console.log(res)
+// }).catch(err => {
+//   console.log(err.message)
+// })
+//
+// const instance = axios.create({
+//   paramsSerializer(params) {
+//     return qs.stringify(params, { arrayFormat: 'brackets' })
+//   }
+// })
+// instance.get('/more/get', {
+//   params: {
+//     a: 1,
+//     b: 2,
+//     c: ['a', 'b', 'c']
+//   }
+// }).then(res => {
+//   console.log(res)
+// }).catch(err => {
+//   console.log(err.message)
+// })
 
-const instance = axios.create({
-  paramsSerializer(params) {
-    return qs.stringify(params, { arrayFormat: 'brackets' })
-  }
-})
-instance.get('/more/get', {
+// baseURL 配置
+// const instance = axios.create({
+//   baseURL: 'https://pic1.zhimg.com/'
+// })
+// instance.get('80/v2-e110c4ec6cbc6b51f1bac346d4d85ab1_hd.jpg')
+// instance.get('https://pic2.zhimg.com/80/v2-edde30bf0ecf7087f5b97aac41282175_hd.jpg')
+
+// 静态方法
+
+function getA() {
+  return axios.get('/more/A')
+}
+
+function getB() {
+  return axios.get('/more/B')
+}
+
+axios.all([getA(), getB()])
+  .then(axios.spread(function(resA, resB) {
+    console.log(resA)
+    console.log(resB)
+  }))
+axios.all([getA(), getB()])
+  .then(([resA, resB]) => {
+    console.log(resA)
+    console.log(resB)
+  })
+
+const configA = {
+  baseURL: 'https://www.baidu.com/',
+  url: 'user/login',
   params: {
-    a: 1,
-    b: 2,
-    c: ['a', 'b', 'c']
+    name: 'lwt',
+    pwd: '123'
   }
-}).then(res => {
-  console.log(res)
-}).catch(err => {
-  console.log(err.message)
-})
+}
+console.log(axios.getUri(configA))

@@ -87,3 +87,13 @@ function resolveURL(url: string): URLOrigin {
     host
   }
 }
+
+// 判断 url 是不是绝对地址
+export function isAbsoluteURL(url: string): boolean {
+  return /(^[a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+// 拼接 baseURL 和 传入的 url
+export function combineURL(baseURL: string, relativeURL: string): string {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
+}
