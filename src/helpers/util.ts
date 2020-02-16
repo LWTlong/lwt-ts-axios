@@ -1,5 +1,3 @@
-import { type } from 'os'
-
 const toString = Object.prototype.toString
 
 // 是否为 date 对象
@@ -8,13 +6,21 @@ export function isDate(val: any): val is Date {
 }
 
 // 是否 是一个对象
-export function isObject(val: any): val is Object {
-  return val !== null && typeof val === 'object'
-}
+// export function isObject(val: any): val is Object {
+//   return val !== null && typeof val === 'object'
+// }
 
 // 是否为普通对象
 export function isPlainObject(val: any): val is Object {
   return toString.call(val) === '[object Object]'
+}
+// 判断是否是 formData
+export function isFormData(val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
+}
+// 判断 url 是不是 URLSearchParams 类型
+export function isURLSearchParams(val: any): val is URLSearchParams {
+  return typeof val !== 'undefined' && val instanceof URLSearchParams
 }
 
 // 合并 Axios 类的原型属性和实例属性
@@ -25,15 +31,6 @@ export function extend<T, U>(to: T, from: U): T & U {
   return to as T & U
 }
 
-// 判断是否是 formData
-export function isFormData(val: any): val is FormData {
-  return typeof val !== 'undefined' && val instanceof FormData
-}
-
-// 判断 url 是不是 URLSearchParams 类型
-export function isURLSearchParams(val: any): val is URLSearchParams {
-  return typeof val !== 'undefined' && val instanceof URLSearchParams
-}
 /**
  * 深拷贝 方法
  */

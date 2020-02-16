@@ -47,11 +47,16 @@
     }
   },
   "jest": {
+    "//": "转换器 表示用 ts-jest 工具把 .ts | .tsx 文件内容转换为 js",
+    "//":"因为测试代码使用 ts 编写的 node.js 不能直接支持 ts 所以要转换一下",
     "transform": {
       ".(ts|tsx)": "ts-jest"
     },
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "//": "测试环境  这里配置jsdom 类浏览器的测试环境",
+    "testEnvironment": "jsdom",
+    "//": "测试文件的目录",
+    "testRegex": "/test/.*\\.(test|spec)\\.(ts)$",
+    "//": "模块扩展名  当引入一个模块并没有添加扩展名的时候 会根据配置的扩展名去寻找引入的模块文件 配置的前后会影响到寻找文件扩展名的优先级",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -61,16 +66,28 @@
       "/node_modules/",
       "/test/"
     ],
+    "//":"测试覆盖率的设定",
     "coverageThreshold": {
+      "//": "全局",
       "global": {
+        "//": "分支",
         "branches": 90,
+        "//":"方法",
         "functions": 95,
+        "//": "行数",
         "lines": 95,
+        "//": "声明",
         "statements": 95
       }
     },
+    "//": "收集指定文件的测试覆盖率",
     "collectCoverageFrom": [
-      "src/*.{js,ts}"
+      "src/*.{js,ts}",
+      "src/**/*.{js,ts}"
+    ],
+    "//": "测试框架安装后立即执行的代码文件",
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/boot.ts"
     ]
   },
   "prettier": {
@@ -85,7 +102,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.1.2",
     "@commitlint/config-conventional": "^7.1.2",
-    "@types/jest": "^23.3.2",
+    "@types/jest": "^25.1.2",
     "@types/node": "^10.11.0",
     "@types/qs": "^6.5.3",
     "@types/nprogress": "0.0.29",
@@ -95,8 +112,8 @@
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.0.1",
-    "jest": "^23.6.0",
-    "jest-config": "^23.6.0",
+    "jest": "^25.1.0",
+    "jest-config": "^25.1.0",
     "lint-staged": "^8.0.0",
     "lodash.camelcase": "^4.3.0",
     "prettier": "^1.14.3",
@@ -112,7 +129,7 @@
     "semantic-release": "^15.9.16",
     "shelljs": "^0.8.3",
     "travis-deploy-once": "^5.0.9",
-    "ts-jest": "^23.10.2",
+    "ts-jest": "^25.2.0",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
