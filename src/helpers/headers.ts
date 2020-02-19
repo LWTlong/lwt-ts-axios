@@ -2,7 +2,7 @@ import { deepMerge, isPlainObject } from './util'
 import { Method } from '../types'
 
 // 处理 headers 里面的 Content-Type
-function normalizeHeaderName(headers: any, normalizedName: string): void {
+export function normalizeHeaderName(headers: any, normalizedName: string): void {
   if (!headers) {
     return
   }
@@ -32,14 +32,12 @@ export function parseHeaders(headers: string): any {
     return parsed
   }
   headers.split('\r\n').forEach(line => {
-    let [key, val] = line.split(':')
+    let [key, ...vals] = line.split(':')
+    key = key.trim().toLowerCase()
     if (!key) {
       return
     }
-    if (val) {
-      val = val.trim()
-    }
-    key = key.trim().toLowerCase()
+    const val = vals.join(':').trim()
     parsed[key] = val
   })
   return parsed
