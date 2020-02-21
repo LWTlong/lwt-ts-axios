@@ -47,16 +47,12 @@
     }
   },
   "jest": {
-    "//": "转换器 表示用 ts-jest 工具把 .ts | .tsx 文件内容转换为 js",
-    "//":"因为测试代码使用 ts 编写的 node.js 不能直接支持 ts 所以要转换一下",
+    "//": "测试框架安装后立即执行的代码文件",
     "transform": {
       ".(ts|tsx)": "ts-jest"
     },
-    "//": "测试环境  这里配置jsdom 类浏览器的测试环境",
     "testEnvironment": "jsdom",
-    "//": "测试文件的目录",
     "testRegex": "/test/.*\\.(test|spec)\\.(ts)$",
-    "//": "模块扩展名  当引入一个模块并没有添加扩展名的时候 会根据配置的扩展名去寻找引入的模块文件 配置的前后会影响到寻找文件扩展名的优先级",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -66,26 +62,20 @@
       "/node_modules/",
       "/test/"
     ],
-    "//":"测试覆盖率的设定",
     "coverageThreshold": {
       "//": "全局",
       "global": {
-        "//": "分支",
-        "branches": 90,
-        "//":"方法",
-        "functions": 95,
-        "//": "行数",
-        "lines": 95,
         "//": "声明",
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
         "statements": 95
       }
     },
-    "//": "收集指定文件的测试覆盖率",
     "collectCoverageFrom": [
       "src/*.{js,ts}",
       "src/**/*.{js,ts}"
     ],
-    "//": "测试框架安装后立即执行的代码文件",
     "setupFilesAfterEnv": [
       "<rootDir>/test/boot.ts"
     ]
@@ -106,6 +96,7 @@
     "@types/node": "^10.11.0",
     "@types/qs": "^6.5.3",
     "@types/nprogress": "0.0.29",
+    "@types/jasmine-ajax": "^3.3.0",
     "colors": "^1.3.2",
     "commitizen": "^3.0.0",
     "coveralls": "^3.0.2",
@@ -148,7 +139,9 @@
     "css-loader": "^3.4.2",
     "style-loader": "^1.1.3",
     "connect-multiparty": "^2.2.0",
-    "atob": "^2.1.2"
+    "atob": "^2.1.2",
+    "jasmine-ajax": "^4.0.0",
+    "jasmine-core": "^3.5.0"
   },
   "dependencies": {
     "cookie-parser": "^1.4.4"
