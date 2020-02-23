@@ -79,18 +79,18 @@ import qs from 'qs'
 //   }
 // })
 
-// axios.post('/more/post', {
-//   a: 1
-// }, {
-//   auth: {
-//     username: 'lwt1',
-//     password: '123456'
-//   }
-// }).then(res => {
-//   console.log(res)
-// }).catch(err => {
-//   console.log(err)
-// })
+axios.post('/more/post', {
+  a: 1
+}, {
+  auth: {
+    username: 'lwt',
+    password: '123'
+  }
+}).then(res => {
+  console.log(res)
+}).catch(err => {
+  console.log(err)
+})
 
 // 自定义响应状体码
 // axios.get('/more/304').then(res => {
@@ -155,31 +155,31 @@ import qs from 'qs'
 
 // 静态方法
 
-function getA() {
-  return axios.get('/more/A')
-}
-
-function getB() {
-  return axios.get('/more/B')
-}
-
-axios.all([getA(), getB()])
-  .then(axios.spread(function(resA, resB) {
-    console.log(resA)
-    console.log(resB)
-  }))
-axios.all([getA(), getB()])
-  .then(([resA, resB]) => {
-    console.log(resA)
-    console.log(resB)
-  })
-
-const configA = {
-  baseURL: 'https://www.baidu.com/',
-  url: 'user/login',
-  params: {
-    name: 'lwt',
-    pwd: '123'
-  }
-}
-console.log(axios.getUri(configA))
+// function getA() {
+//   return axios.get('/more/A')
+// }
+//
+// function getB() {
+//   return axios.get('/more/B')
+// }
+//
+// axios.all([getA(), getB()])
+//   .then(axios.spread(function(resA, resB) {
+//     console.log(resA)
+//     console.log(resB)
+//   }))
+// axios.all([getA(), getB()])
+//   .then(([resA, resB]) => {
+//     console.log(resA)
+//     console.log(resB)
+//   })
+//
+// const configA = {
+//   baseURL: 'https://www.baidu.com/',
+//   url: 'user/login',
+//   params: {
+//     name: 'lwt',
+//     pwd: '123'
+//   }
+// }
+// console.log(axios.getUri(configA))

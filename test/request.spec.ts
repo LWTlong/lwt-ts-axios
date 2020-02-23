@@ -229,4 +229,34 @@ describe('request 模块', () => {
       expect(res.requestHeaders['Content-Type']).toBe('application/json')
     })
   })
+
+  test('响应数据为 array buffer', done => {
+    let response: AxiosResponse
+
+    function str2ab(str: string) {
+      const buff = new ArrayBuffer(str.length * 2)
+      const view = new Uint16Array(buff)
+      for (let i = 0; i < str.length; i++) {
+        view[i] = str.charCodeAt(i)
+      }
+      return buff
+    }
+
+    axios('/user', {
+      responseType: 'arraybuffer'
+    }).then(res => {
+      response = res
+    })
+    getAjaxRequest().then(res => {
+      res.respondWith({
+        status: 200,
+        // @ts-ignore
+        response: str2ab('hello world')
+      })
+      setTimeout(() => {
+        expect(response.data.byteLength).toBe(22)
+        done()
+      }, 100)
+    })
+  })
 })

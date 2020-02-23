@@ -1,18 +1,18 @@
 {
   "name": "lwt-ts-axios",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "",
   "keywords": [],
-  "main": "dist/lwt-ts-axios.umd.js",
-  "module": "dist/lwt-ts-axios.es5.js",
-  "typings": "dist/types/lwt-ts-axios.d.ts",
+  "main": "dist/lwt-axios.umd.js",
+  "module": "dist/lwt-axios.es5.js",
+  "typings": "dist/types/lwt-axios.d.ts",
   "files": [
     "dist"
   ],
   "author": "老黑 <815473953@qq.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/LWTlong/lwt-ts-axios"
   },
   "license": "MIT",
   "engines": {
@@ -33,7 +33,9 @@
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once",
+    "prepub": "npm run test:prod && npm run build",
+    "pub": "release.sh"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
