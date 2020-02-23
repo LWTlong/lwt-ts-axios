@@ -1,6 +1,6 @@
 {
   "name": "lwt-ts-axios",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "description": "",
   "keywords": [],
   "main": "dist/lwt-axios.umd.js",
